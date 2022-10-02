@@ -778,3 +778,106 @@ plot_loss(150,F_2_archicture_1[3],F_2_archicture_2[3],F_2_archicture_3[3],F_2_ar
 
 #Plot Losses
 plot_loss(70,F_3_archicture_1[3],F_3_archicture_2[3],F_3_archicture_3[3],F_3_archicture_4[3],F_3_archicture_5[3],F_3_our_model[3],)
+
+#Plots Shapes
+plot_shape(F_1_archicture_1,F_1_archicture_2,F_1_archicture_3,F_1_archicture_4,F_1_archicture_5,F_1_our_model,)
+
+#Plots Shapes 
+plot_shape(F_2_archicture_1,F_2_archicture_2,F_2_archicture_3,F_2_archicture_4,F_2_archicture_5,F_2_our_model,)
+
+#Plots Shapes
+plot_shape(F_3_archicture_1,F_3_archicture_2,F_3_archicture_3,F_3_archicture_4,F_3_archicture_5,F_3_our_model)
+
+#Our Model With 2 Layers
+model = Sequential()
+
+
+
+in_ = Input(shape=(input_dim,))
+Layer_1_Act_X_1=Dense(hidden_dimention, activation='X_1')(in_)
+Layer_1_Act_X_2=Dense(hidden_dimention, activation='X_2')(in_)
+Layer_1_Act_X_3=Dense(hidden_dimention, activation='X_3')(in_)
+Layer_1_Act_X_4=Dense(hidden_dimention, activation='X_4')(in_)
+Layer_1_Act_X_5=Dense(hidden_dimention, activation='X_5')(in_)
+
+Layer_1_Act_X_6=Dense(hidden_dimention, activation='X_6')(in_)
+
+Layer_1_Act_X_7=Dense(hidden_dimention, activation='X_7')(in_)
+
+Layer_1_Act_X_8=Dense(hidden_dimention, activation='X_8')(in_)
+
+Concatenate_First_Layer = concatenate([Layer_1_Act_X_1,Layer_1_Act_X_2,Layer_1_Act_X_3,Layer_1_Act_X_4,Layer_1_Act_X_5,Layer_1_Act_X_6,Layer_1_Act_X_7,Layer_1_Act_X_8])
+
+Out_put_first_layer=Dense(hidden_dimention, activation='linear')(Concatenate_First_Layer)
+
+
+Out_put=Dense(output_dim, activation='linear')(Out_put_first_layer)
+model = Model(in_ , Out_put)
+model.summary()
+model.compile(loss='mean_squared_error', optimizer='adam')
+
+from IPython.display import Image
+Image(filename='model_2_layers.png')
+
+#Train Our Model on Function 3
+column=2
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_3_archicture_our
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_3_our_model=[X_test,Y_test,predict,history]
+
+#Train Our Model on Function 2
+column=1
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_2_archicture_our
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_2_our_model=[X_test,Y_test,predict,history]
+
+#Train Our Model on Function 1
+column=0
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_1_archicture_our
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_1_our_model=[X_test,Y_test,predict,history]
