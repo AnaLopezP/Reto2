@@ -295,3 +295,42 @@ predict=model.predict(X_test)
 plt.scatter(X_test, predict)
 
 F_3_archicture_1=[X_test,Y_test,predict,history,]
+
+#Modelo para la función 2
+column=1
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+
+F_2_archicture_1=[X_test,Y_test,predict,history]
+
+#Modelo para la función 1
+column=0
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+#F_1_archicture_1
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_1_archicture_1=[X_test,Y_test,predict,history]
