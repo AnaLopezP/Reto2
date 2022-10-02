@@ -7,8 +7,23 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ReduceLROnPlateau
 from keras import backend as K
 from keras.optimizers import SGD
-from ke
+from keras.datasets import mnist
+from keras.utils import plot_model
 
+import tensorflow as tf
+import numpy
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.ticker import NullFormatter  # useful for `logit` scale
+import matplotlib.image as mpimg
+import seaborn as sns
+%matplotlib inline
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+import itertools
+############################################################################
+numpy.random.seed(110)
 
 
 #Definimos las nuevas funciones
@@ -40,6 +55,7 @@ def X_9(x):
     return (K.pow(x,8))/362880
 get_custom_objects().update({'X_9': Activation(X_9)})
 
+#Definimos las funciones de 
 def power_(x,n):
   return np.power(x,n)
 
