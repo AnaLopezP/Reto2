@@ -55,7 +55,7 @@ def X_9(x):
     return (K.pow(x,8))/362880
 get_custom_objects().update({'X_9': Activation(X_9)})
 
-#Definimos las funciones de 
+#Definimos las funciones del Test
 def power_(x,n):
   return np.power(x,n)
 
@@ -114,9 +114,70 @@ def plot_loss(size,in_1,in_2,in_3,in_4,in_5,in_6):
     plt.ylim(0, size)
     plt.title('Architure 2')
 
+   plt.subplot(233)
+    training_loss1 = in_3.history['loss']
+    test_loss1 = in_3.history['val_loss']
+    epoch_count = range(1, len(training_loss1) + 1)
+    plt.plot(epoch_count, training_loss1, 'r--')
+    plt.plot(epoch_count, test_loss1, 'b-')
+    plt.legend(['Training Loss', 'Test Loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.ylim(0, size)
+    plt.title('Architure 3')
 
 
 
+    plt.subplot(234)
+    training_loss1 = in_4.history['loss']
+    test_loss1 = in_4.history['val_loss']
+    epoch_count = range(1, len(training_loss1) + 1)
+    plt.plot(epoch_count, training_loss1, 'r--')
+    plt.plot(epoch_count, test_loss1, 'b-')
+    plt.legend(['Training Loss', 'Test Loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.ylim(0, size)
+    plt.title('Architure 4')
+
+       plt.subplot(235)
+    training_loss1 = in_5.history['loss']
+    test_loss1 = in_5.history['val_loss']
+    epoch_count = range(1, len(training_loss1) + 1)
+    plt.plot(epoch_count, training_loss1, 'r--')
+    plt.plot(epoch_count, test_loss1, 'b-')
+    plt.legend(['Training Loss', 'Test Loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.ylim(0, size)
+    plt.title('Architure 5')
+
+    
+    
+    plt.subplot(236)
+    training_loss1 = in_6.history['loss']
+    test_loss1 = in_6.history['val_loss']
+    epoch_count = range(1, len(training_loss1) + 1)
+    plt.plot(epoch_count, training_loss1, 'r--')
+    plt.plot(epoch_count, test_loss1, 'b-')
+    plt.legend(['Training Loss', 'Test Loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.ylim(0, size)
+    plt.title('Our Architure ')
+
+
+
+    plt.subplots_adjust(top=0.92, bottom=0.08, left=0.0010, right=0.95, hspace=0.3,
+                        wspace=0.18)
+
+    plt.show()
+    
+    
+  
+
+
+#Creamos las gráficas de las funciones test
 
 def plot_shape(in_1,in_2,in_3,in_4,in_5,in_6):
 
@@ -161,3 +222,23 @@ def plot_shape(in_1,in_2,in_3,in_4,in_5,in_6):
                         wspace=0.18)
 
     plt.show()
+
+#Creamos el dataset
+dim_train=1000
+dim_test=200
+
+X_train_temp=generate_random(dim_train,3)
+Y_train_temp=generate_random(dim_train,3)
+
+X_test_temp=generate_random(dim_test,3)
+Y_test_temp=generate_random(dim_test,3)
+
+    
+Y_train_temp[:,0]=fun_1(X_train_temp[:,0])
+Y_train_temp[:,1]=fun_2(X_train_temp[:,1])
+Y_train_temp[:,2]=fun_3(X_train_temp[:,2])
+    
+
+Y_test_temp[:,0]=fun_1(X_test_temp[:,0])
+Y_test_temp[:,1]=fun_2(X_test_temp[:,1])
+Y_test_temp[:,2]=fun_3(X_test_temp[:,2])
