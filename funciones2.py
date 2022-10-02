@@ -242,3 +242,56 @@ Y_train_temp[:,2]=fun_3(X_train_temp[:,2])
 Y_test_temp[:,0]=fun_1(X_test_temp[:,0])
 Y_test_temp[:,1]=fun_2(X_test_temp[:,1])
 Y_test_temp[:,2]=fun_3(X_test_temp[:,2])
+
+#Hiperparametros
+number_epo=50
+input_dim=1
+output_dim=1
+
+#Primera arquitectura estandar
+model = Sequential()
+model.add(Dense(10, input_dim=input_dim, activation='relu'))
+model.add(Dense(20, activation='sigmoid'))
+model.add(Dense(30, activation='tanh'))
+model.add(Dense(20, activation='relu'))
+model.add(Dense(15, activation='sigmoid'))
+model.add(Dense(25, activation='relu'))
+model.add(Dense(10, activation='relu'))
+model.add(Dense(output_dim, activation='tanh'))
+model.add(Dropout(0.2))
+
+
+#Creamos las graficas para las funciones de aumentyo y disminucion
+def plot_(history):
+    training_loss1 = history.history['loss']
+    test_loss1 = history.history['val_loss']
+    epoch_count = range(1, len(training_loss1) + 1)
+    plt.plot(epoch_count, training_loss1, 'r--')
+    plt.plot(epoch_count, test_loss1, 'b-')
+    plt.legend(['Training Loss', 'Test Loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.show();
+
+
+
+
+#modelo para función 3
+column=2
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+# F_3_archicture_1_
+
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_3_archicture_1=[X_test,Y_test,predict,history,]
