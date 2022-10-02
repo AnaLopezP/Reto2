@@ -509,3 +509,144 @@ model.add(Dense(output_dim, activation='relu'))
 model.add(Dropout(0.2))
 #model.summary()
 model.compile(loss='mean_squared_error', optimizer='adam')
+
+#Train Model for Function 3
+column=2
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_3_archicture_4
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_3_archicture_4=[X_test,Y_test,predict,history]
+
+#Train Model for Function 2
+column=1
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_2_archicture_4
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_2_archicture_4=[X_test,Y_test,predict,history]
+
+#Train Model for Function 1
+column=0
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_1_archicture_4
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_1_archicture_4=[X_test,Y_test,predict,history]
+
+#Fifth Traditional Model
+model = Sequential()
+model.add(Dense(5, input_dim=input_dim, activation='softplus'))
+model.add(Dense(10, activation='softplus'))
+model.add(Dense(20, activation='tanh'))
+model.add(Dense(15, activation='relu'))
+model.add(Dense(25, activation='tanh'))
+model.add(Dense(20, activation='sigmoid'))
+model.add(Dense(25, activation='relu'))
+model.add(Dense(output_dim, activation='softplus'))
+model.add(Dropout(0.2))
+model.compile(loss='mean_squared_error', optimizer='adam')
+
+#Train Model for Function 3
+column=2
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_3_archicture_5
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+
+F_3_archicture_5=
+[X_test,Y_test,predict,history]
+
+#Train Model for Function 2
+column=1
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_2_archicture_5
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_2_archicture_5=[X_test,Y_test,predict,history]
+
+#Train Model for Function 1
+column=0
+X_train=X_train_temp[:,column]
+Y_train=Y_train_temp[:,column]
+X_test=X_test_temp[:,column]
+Y_test=Y_test_temp[:,column]
+
+
+#F_1_archicture_5
+
+start = timeit.default_timer()
+history = model.fit(X_train,Y_train,epochs=number_epo,verbose=0,batch_size=10,validation_data=(X_test, Y_test)) 
+end = timeit.default_timer()
+print("Run Time : %f" % (end-start))
+plot_(history)
+plt.scatter(X_test, Y_test)
+predict=model.predict(X_test)
+plt.scatter(X_test, predict)
+
+F_1_archicture_5=[X_test,Y_test,predict,history]
