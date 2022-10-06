@@ -10,6 +10,9 @@ diabetes = pd.read_csv('diabetes.csv')
 #columnas
 print(diabetes.columns )
 print('\n')
+#información
+print(diabetes.info())
+print('\n')
 #dimensión
 print('dimensión diabetes: ' + str(diabetes.shape) + '\n')
 #Agrupamos datos
