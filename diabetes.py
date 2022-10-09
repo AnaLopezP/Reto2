@@ -6,6 +6,7 @@ import seaborn as sn
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 
 
 #leemos csv
@@ -104,4 +105,19 @@ plt.ylabel("Coefficient magnitude")
 plt.legend()
 plt.savefig('log_coef')
 
-#Arbol
+#Arbol de decision
+
+tree = DecisionTreeClassifier(random_state=0)
+tree.fit(X_train, y_train)
+print("Accuracy on training set: {:.3f}".format(tree.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(tree.score(X_test, y_test)))
+
+tree = DecisionTreeClassifier(max_depth=3, random_state=0)
+tree.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.3f}".format(tree.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(tree.score(X_test, y_test)))
+
+#La precisión del set de entrenamiento es del 100%, mientras que la precisión del set de prueba es mucho peor. Esto indica que el árbol se está sobreadaptando y no está generalizando bien a los nuevos datos. Por lo tanto, tenemos que aplicar la pre poda al árbol.
+
+#Establecemos max_depth=3, limitando la profundidad del árbol disminuye el exceso de equipamiento. Esto conduce a una menor precisión en el equipo de entrenamiento, pero una mejora en el equipo de pruebas.
