@@ -80,3 +80,28 @@ print("Test set accuracy: {:.3f}".format(logreg001.score(X_test, y_test)))
 logreg100 = LogisticRegression(C=100).fit(X_train, y_train)
 print("Training set accuracy: {:.3f}".format(logreg100.score(X_train, y_train)))
 print("Test set accuracy: {:.3f}".format(logreg100.score(X_test, y_test)))
+
+
+#El uso de C=100 da como resultado una precisión un poco mayor en el conjunto de entrenamiento y un poco menor precisión en el conjunto de pruebas, confirmando que menos regularización y un modelo más complejo puede no generalizar mejor que la configuración predeterminada. 
+
+#Por lo tanto, debemos elegir el valor predeterminado C=1.
+#Finalmente, echemos un vistazo a los coeficientes aprendidos por los modelos con las tres configuraciones diferentes del parámetro de regularización C.
+
+#Una mayor regularización (C=0,001) empuja los coeficientes cada vez más hacia cero. Al inspeccionar la trama más de cerca, también podemos ver que la característica «DiabetesPedigreeFunction», para C=100, C=1 y C=0,001, el coeficiente es positivo. Esto indica que la función «DiabetesPedigreeFunction» está relacionada con una muestra que es «diabetes», independientemente del modelo que veamos.
+
+
+diabetes_features = [x for i,x in enumerate(diabetes.columns) if i!=8]
+
+plt.figure(figsize=(8,6))
+plt.plot(logreg.coef_.T, 'o', label="C=1")
+plt.plot(logreg100.coef_.T, '^', label="C=100")
+plt.plot(logreg001.coef_.T, 'v', label="C=0.001")
+plt.xticks(range(diabetes.shape[1]), diabetes_features, rotation=90)
+plt.hlines(0, 0, diabetes.shape[1])
+plt.ylim(-5, 5)
+plt.xlabel("Feature")
+plt.ylabel("Coefficient magnitude")
+plt.legend()
+plt.savefig('log_coef')
+
+#Arbol
