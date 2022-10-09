@@ -9,6 +9,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.svm import SVC
+from sklearn.preprocessing import MinMaxScaler
 
 #leemos csv
 diabetes = pd.read_csv('diabetes.csv')
@@ -191,3 +193,33 @@ print("Accuracy on test set: {:.3f}".format(gb2.score(X_test, y_test)))
 plot_feature_importances_diabetes(gb1)
 
 #Podemos ver que las importancias de características de los árboles impulsados por gradiente son algo similares a las importancias de características de los bosques aleatorios, da peso a todas las características en este caso.
+
+### Apoyo Vector Machine
+
+svc = SVC()
+svc.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.2f}".format(svc.score(X_train, y_train)))
+print("Accuracy on test set: {:.2f}".format(svc.score(X_test, y_test)))
+
+#El modelo sobresale bastante, con una puntuación perfecta en el set de entrenamiento y una precisión del 65% en el set de pruebas.
+#SVM requiere que todas las funciones varíen en una escala similar. Tendremos que volver a analizar nuestros datos que todas las funciones están aproximadamente en la misma escala:
+
+scaler = MinMaxScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.fit_transform(X_test)
+
+svc = SVC()
+svc.fit(X_train_scaled, y_train)
+
+print("Accuracy on training set: {:.2f}".format(svc.score(X_train_scaled, y_train)))
+print("Accuracy on test set: {:.2f}".format(svc.score(X_test_scaled, y_test)))
+
+#Escalar los datos es una gran diferencia. Ahora estamos en un régimen de infraadaptación, donde el entrenamiento y el rendimiento de los conjuntos de pruebas son bastante similares pero menos cercanos al 100% de precisión. Desde aquí, podemos intentar incrementar C o gamma para encajar en un modelo más complejo.
+
+svc = SVC(C=1000)
+svc.fit(X_train_scaled, y_train)
+
+print("Accuracy on training set: {:.3f}".format(
+    svc.score(X_train_scaled, y_train)))
+print("Accuracy on test set: {:.3f}".format(svc.score(X_test_scaled, y_test)))
