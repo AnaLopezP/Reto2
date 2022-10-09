@@ -30,7 +30,7 @@ print(diabetes.groupby('Outcome').size())
 sn.countplot(diabetes['Outcome'], label= 'Count')
 
 
-#Conexión entre la complejidad del modelo y la precisión de datos.
+### Conexión entre la complejidad del modelo y la precisión de datos.
 X_train, X_test, y_train, y_test = train_test_split(diabetes.loc[:, diabetes.columns != 'Outcome'], diabetes['Outcome'], stratify=diabetes['Outcome'], random_state=66)
 
 training_accuracy = []
@@ -64,7 +64,7 @@ knn.fit(X_train, y_train)
 print('Accuracy of K-NN classifier on training set: {:.2f}'.format(knn.score(X_train, y_train)))
 print('Accuracy of K-NN classifier on test set: {:.2f}'.format(knn.score(X_test, y_test)))
 
-#Regresión logística
+### Regresión logística
 #La regresión logística es uno de los algoritmos de clasificación más comunes.
 
 logreg = LogisticRegression().fit(X_train, y_train)
@@ -105,7 +105,7 @@ plt.ylabel("Coefficient magnitude")
 plt.legend()
 plt.savefig('log_coef')
 
-#Arbol de decision
+### Arbol de decision
 
 tree = DecisionTreeClassifier(random_state=0)
 tree.fit(X_train, y_train)
@@ -140,7 +140,7 @@ plt.savefig('feature_importance')
 # La «Glucosa» es, con mucha diferencia, la característica más importante.
 
 
-#Bosque random
+### Bosque random
 rf = RandomForestClassifier(n_estimators=100, random_state=0)
 rf.fit(X_train, y_train)
 print("Accuracy on training set: {:.3f}".format(rf.score(X_train, y_train)))
@@ -152,3 +152,10 @@ print("Accuracy on training set: {:.3f}".format(rf1.score(X_train, y_train)))
 print("Accuracy on test set: {:.3f}".format(rf1.score(X_test, y_test)))
 
 #El bosque aleatorio nos da una precisión del 78,6%, mejor que el modelo de regresión logística o un solo árbol de decisión, sin ajustar ningún parámetro. Sin embargo, podemos ajustar la configuración max_features, para ver si se puede mejorar el resultado.
+
+### Lo importante en el Bosque random
+
+#Al igual que el árbol de decisión único, el bosque aleatorio también da mucha importancia a la función «Glucosa», pero también elige «IMC» para ser la segunda característica más informativa en general. La aleatoriedad en la construcción del bosque aleatorio obliga al algoritmo a considerar muchas explicaciones posibles, el resultado es que el bosque aleatorio captura una imagen mucho más amplia de los datos que un solo árbol.
+
+
+plot_feature_importances_diabetes(rf)
