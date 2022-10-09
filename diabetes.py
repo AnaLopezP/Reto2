@@ -121,3 +121,19 @@ print("Accuracy on test set: {:.3f}".format(tree.score(X_test, y_test)))
 #La precisión del set de entrenamiento es del 100%, mientras que la precisión del set de prueba es mucho peor. Esto indica que el árbol se está sobreadaptando y no está generalizando bien a los nuevos datos. Por lo tanto, tenemos que aplicar la pre poda al árbol.
 
 #Establecemos max_depth=3, limitando la profundidad del árbol disminuye el exceso de equipamiento. Esto conduce a una menor precisión en el equipo de entrenamiento, pero una mejora en el equipo de pruebas.
+
+#Importancia de la característica en los árboles de Decisión
+#La importancia de la característica determina cuán importante es cada característica para la decisión que toma un árbol. Es un número entre 0 y 1 para cada función, donde 0 significa «no se utiliza en absoluto» y 1 significa «predecir perfectamente el objetivo.» La importancia de las características siempre suman 1:
+print("Feature importances:\n{}".format(tree.feature_importances_))
+
+def plot_feature_importances_diabetes(model):
+    plt.figure(figsize=(8,6))
+    n_features = 8
+    plt.barh(range(n_features), model.feature_importances_, align='center')
+    plt.yticks(np.arange(n_features), diabetes_features)
+    plt.xlabel("Feature importance")
+    plt.ylabel("Feature")
+    plt.ylim(-1, n_features)
+
+plot_feature_importances_diabetes(tree)
+plt.savefig('feature_importance')
