@@ -11,6 +11,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
 
 #leemos csv
 diabetes = pd.read_csv('diabetes.csv')
@@ -215,7 +217,7 @@ svc.fit(X_train_scaled, y_train)
 print("Accuracy on training set: {:.2f}".format(svc.score(X_train_scaled, y_train)))
 print("Accuracy on test set: {:.2f}".format(svc.score(X_test_scaled, y_test)))
 
-#Escalar los datos es una gran diferencia. Ahora estamos en un régimen de infraadaptación, donde el entrenamiento y el rendimiento de los conjuntos de pruebas son bastante similares pero menos cercanos al 100% de precisión. Desde aquí, podemos intentar incrementar C o gamma para encajar en un modelo más complejo.
+#Escalar los datos es una gran diferencia.Ahora estamos en un régimen de infraadaptación, donde el entrenamiento y el rendimiento de los conjuntos de pruebas son bastante similares pero menos cercanos al 100% de precisión. Desde aquí, podemos intentar incrementar C o gamma para encajar en un modelo más complejo.
 
 svc = SVC(C=1000)
 svc.fit(X_train_scaled, y_train)
@@ -223,3 +225,36 @@ svc.fit(X_train_scaled, y_train)
 print("Accuracy on training set: {:.3f}".format(
     svc.score(X_train_scaled, y_train)))
 print("Accuracy on test set: {:.3f}".format(svc.score(X_test_scaled, y_test)))
+#En este caso, el aumento de C nos permite mejorar el modelo, obteniendo una precisión del 79,7%.
+
+### Conexion neuronal
+
+mlp = MLPClassifier(random_state=42)
+mlp.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.2f}".format(mlp.score(X_train, y_train)))
+print("Accuracy on test set: {:.2f}".format(mlp.score(X_test, y_test)))
+
+#La precisión de la MLP no es tan buena como la de los otros modelos, probablemente debido a la escala de los datos. Las redes neuronales también esperan que todas las funciones de entrada varíen de manera similar, e idealmente que tengan una media de 0, y una varianza de 1. Debemos rescatar nuestros datos para que cumplan con estos requisitos.
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.fit_transform(X_test)
+
+mlp = MLPClassifier(random_state=0)
+mlp.fit(X_train_scaled, y_train)
+
+print("Accuracy on training set: {:.3f}".format(
+    mlp.score(X_train_scaled, y_train)))
+print("Accuracy on test set: {:.3f}".format(mlp.score(X_test_scaled, y_test)))
+
+#Los resultados son mucho mejores después de la escala. De hecho, hemos obtenido la mayor precisión de las pruebas hasta ahora.
+
+mlp = MLPClassifier(max_iter=1000, random_state=0)
+mlp.fit(X_train_scaled, y_train)
+
+print("Accuracy on training set: {:.3f}".format(
+    mlp.score(X_train_scaled, y_train)))
+print("Accuracy on test set: {:.3f}".format(mlp.score(X_test_scaled, y_test)))
+
+#Desde el mapa de calor, no es fácil señalar rápidamente qué característica (características) tienen pesos relativamente bajos en comparación con las otras características.
