@@ -8,6 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 #leemos csv
 diabetes = pd.read_csv('diabetes.csv')
@@ -159,3 +160,34 @@ print("Accuracy on test set: {:.3f}".format(rf1.score(X_test, y_test)))
 
 
 plot_feature_importances_diabetes(rf)
+
+### Aumento de gradiente
+
+gb = GradientBoostingClassifier(random_state=0)
+gb.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.3f}".format(gb.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(gb.score(X_test, y_test)))
+
+
+
+#Es probable que estemos sobreequipando. Para reducir el sobreequipamiento, podríamos aplicar una pre-pudadura más fuerte limitando la profundidad máxima o reducir la tasa de aprendizaje:
+
+gb1 = GradientBoostingClassifier(random_state=0, max_depth=1)
+gb1.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.3f}".format(gb1.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(gb1.score(X_test, y_test)))
+
+gb2 = GradientBoostingClassifier(random_state=0, learning_rate=0.01)
+gb2.fit(X_train, y_train)
+
+print("Accuracy on training set: {:.3f}".format(gb2.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(gb2.score(X_test, y_test)))
+
+#Ambos métodos de disminución de la complejidad del modelo redujeron la precisión del conjunto de entrenamiento, como se esperaba. En este caso, ninguno de estos métodos incrementó el rendimiento de generalización del equipo de ensayo.
+#Podemos visualizar las características importantes para obtener más información sobre nuestro modelo a pesar de que no estamos realmente contentos con el modelo.
+
+plot_feature_importances_diabetes(gb1)
+
+#Podemos ver que las importancias de características de los árboles impulsados por gradiente son algo similares a las importancias de características de los bosques aleatorios, da peso a todas las características en este caso.
