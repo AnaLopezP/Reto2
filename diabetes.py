@@ -257,4 +257,24 @@ print("Accuracy on training set: {:.3f}".format(
     mlp.score(X_train_scaled, y_train)))
 print("Accuracy on test set: {:.3f}".format(mlp.score(X_test_scaled, y_test)))
 
+mlp = MLPClassifier(max_iter=1000, alpha=1, random_state=0)
+mlp.fit(X_train_scaled, y_train)
+
+print("Accuracy on training set: {:.3f}".format(
+    mlp.score(X_train_scaled, y_train)))
+print("Accuracy on test set: {:.3f}".format(mlp.score(X_test_scaled, y_test)))
+
+plt.figure(figsize=(20, 5))
+plt.imshow(mlp.coefs_[0], interpolation='none', cmap='viridis')
+plt.yticks(range(8), diabetes_features)
+plt.xlabel("Columns in weight matrix")
+plt.ylabel("Input feature")
+plt.colorbar()
+
 #Desde el mapa de calor, no es fácil señalar rápidamente qué característica (características) tienen pesos relativamente bajos en comparación con las otras características.
+
+
+### Resumen
+#Practicamos una amplia gama de modelos de machine learning para clasificación y regresión, cuáles son sus ventajas y desventajas, y cómo controlar la complejidad del modelo para cada uno de ellos. Vimos que para muchos de los algoritmos, establecer los parámetros correctos es importante para un buen rendimiento.
+
+#Hasta aqui esta hecha la ampliacion del reto 2 sobre la diabetes
