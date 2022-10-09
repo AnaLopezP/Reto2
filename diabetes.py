@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sn
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
 #leemos csv
 diabetes = pd.read_csv('diabetes.csv')
@@ -24,3 +26,6 @@ print(diabetes.groupby('Outcome').size())
 #representación datos
 sn.countplot(diabetes['Outcome'], label= 'Count')
 
+
+#Conexión entre la complejidad del modelo y la precisión de datos.
+X_train, X_test, y_train, y_test = train_test_split(diabetes.loc[:, diabetes.columns != 'Outcome
