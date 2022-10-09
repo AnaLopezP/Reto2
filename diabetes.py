@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sn
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+
 
 #leemos csv
 diabetes = pd.read_csv('diabetes.csv')
@@ -60,3 +62,10 @@ knn.fit(X_train, y_train)
 
 print('Accuracy of K-NN classifier on training set: {:.2f}'.format(knn.score(X_train, y_train)))
 print('Accuracy of K-NN classifier on test set: {:.2f}'.format(knn.score(X_test, y_test)))
+
+#Regresión logística
+#La regresión logística es uno de los algoritmos de clasificación más comunes.
+
+logreg = LogisticRegression().fit(X_train, y_train)
+print("Training set accuracy: {:.3f}".format(logreg.score(X_train, y_train)))
+print("Test set accuracy: {:.3f}".format(logreg.score(X_test, y_test)))
