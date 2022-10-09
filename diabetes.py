@@ -69,3 +69,14 @@ print('Accuracy of K-NN classifier on test set: {:.2f}'.format(knn.score(X_test,
 logreg = LogisticRegression().fit(X_train, y_train)
 print("Training set accuracy: {:.3f}".format(logreg.score(X_train, y_train)))
 print("Test set accuracy: {:.3f}".format(logreg.score(X_test, y_test)))
+
+#El valor predeterminado de C=1 proporciona una precisión del 78% en el entrenamiento y del 77% en el conjunto de pruebas.
+logreg001 = LogisticRegression(C=0.01).fit(X_train, y_train)
+print("Training set accuracy: {:.3f}".format(logreg001.score(X_train, y_train)))
+print("Test set accuracy: {:.3f}".format(logreg001.score(X_test, y_test)))
+
+#El uso de C=0,01 da lugar a una menor precisión tanto en el entrenamiento como en los sets de pruebas.
+
+logreg100 = LogisticRegression(C=100).fit(X_train, y_train)
+print("Training set accuracy: {:.3f}".format(logreg100.score(X_train, y_train)))
+print("Test set accuracy: {:.3f}".format(logreg100.score(X_test, y_test)))
