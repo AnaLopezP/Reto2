@@ -1,5 +1,9 @@
 # Reto2
 
+# Integrantes del grupo
+Paula Naranjo
+Andrea Manuel
+Ana Lopez
 # Link del repositorio:
 
 [GitHUb](https://github.com/AnaLopezP/Reto2.git)
