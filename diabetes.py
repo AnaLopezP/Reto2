@@ -53,5 +53,10 @@ plt.savefig('knn_compare_model')
 
 #El gráfico muestra el entrenamiento y la precisión del conjunto de pruebas en el eje y contra la configuración de n_vecinos en el eje x. Considerando que si elegimos un solo vecino más cercano, la predicción sobre el conjunto de entrenamiento es perfecta. Pero cuando se consideran más vecinos, la precisión del entrenamiento disminuye, lo que indica que el uso del vecino más cercano conduce a un modelo demasiado complejo.
 #El mejor rendimiento está en algún lugar alrededor de 9 vecinos.
-#El gráfico anterior sugiere que deberíamos elegir n_neighbors=9. Aquí estamos:
+#El gráfico anterior sugiere que deberíamos elegir n_neighbors=9.
 
+knn = KNeighborsClassifier(n_neighbors=9)
+knn.fit(X_train, y_train)
+
+print('Accuracy of K-NN classifier on training set: {:.2f}'.format(knn.score(X_train, y_train)))
+print('Accuracy of K-NN classifier on test set: {:.2f}'.format(knn.score(X_test, y_test)))
