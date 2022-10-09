@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
-
+from sklearn.ensemble import RandomForestClassifier
 
 #leemos csv
 diabetes = pd.read_csv('diabetes.csv')
@@ -137,3 +137,18 @@ def plot_feature_importances_diabetes(model):
 
 plot_feature_importances_diabetes(tree)
 plt.savefig('feature_importance')
+# La «Glucosa» es, con mucha diferencia, la característica más importante.
+
+
+#Bosque random
+rf = RandomForestClassifier(n_estimators=100, random_state=0)
+rf.fit(X_train, y_train)
+print("Accuracy on training set: {:.3f}".format(rf.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(rf.score(X_test, y_test)))
+
+rf1 = RandomForestClassifier(max_depth=3, n_estimators=100, random_state=0)
+rf1.fit(X_train, y_train)
+print("Accuracy on training set: {:.3f}".format(rf1.score(X_train, y_train)))
+print("Accuracy on test set: {:.3f}".format(rf1.score(X_test, y_test)))
+
+#El bosque aleatorio nos da una precisión del 78,6%, mejor que el modelo de regresión logística o un solo árbol de decisión, sin ajustar ningún parámetro. Sin embargo, podemos ajustar la configuración max_features, para ver si se puede mejorar el resultado.
