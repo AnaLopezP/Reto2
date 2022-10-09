@@ -10,6 +10,9 @@ diabetes = pd.read_csv('diabetes.csv')
 #columnas
 print(diabetes.columns )
 print('\n')
+#Encabezado 
+diabetes.head()
+print('\n')
 #información
 print(diabetes.info())
 print('\n')
@@ -20,3 +23,4 @@ print(diabetes.groupby('Outcome').size())
 
 #representación datos
 sn.countplot(diabetes['Outcome'], label= 'Count')
+
